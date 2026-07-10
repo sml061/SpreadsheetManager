@@ -1,0 +1,322 @@
+/* Estilize as páginas de login e register, deixe aparentemente com minha personalidade percebida pelas nossas conversas. */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #1e2227;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background-attachment: fixed;
+    background-image:
+        linear-gradient(135deg, #1e2227 0%, #1e2227 100%);
+}
+
+.container {
+    background: rgba(255, 255, 255, 0.92);
+    border-radius: 24px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    width: 100%;
+    max-width: 400px;
+    padding: 2.5rem 2rem;
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    position: relative;
+    overflow: hidden;
+    transform: translateY(0);
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, #1e2227, #e7e7e7);
+    background-size: 200% 100%;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    position: relative;
+}
+
+h1 {
+    font-size: 2.4rem;
+    font-weight: 800;
+    background: #1e2227;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin: 0;
+    letter-spacing: -0.5px;
+    position: relative;
+    display: inline-block;
+}
+
+.form-group {
+    margin-bottom: 1.8rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.8rem;
+    font-weight: 600;
+    color: #2c3e50;
+    font-size: 1.05rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+}
+
+label::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #3a0a6ebb, #2575fc);
+}
+
+.input-group {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-group-icon {
+    position: absolute;
+    left: 12px;
+    color: #3a0a6ebb;
+    font-size: 1.1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: color 0.3s ease;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 1rem 1.2rem 1rem 3rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 14px;
+    font-size: 1rem;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    background: #f8f9fa;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus {
+    outline: none;
+    border-color: #3a0a6ebb;
+    box-shadow: 0 0 0 4px rgba(106, 17, 203, 0.15);
+    background: white;
+    transform: translateY(-2px);
+}
+
+input[type="text"]:focus + .input-group-icon,
+input[type="email"]:focus + .input-group-icon,
+input[type="password"]:focus + .input-group-icon {
+    color: #2575fc;
+    transform: translateY(-50%) scale(1.1);
+}
+
+/* Checkbox styles */
+input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    margin-right: 8px;
+    cursor: pointer;
+    border: 2px solid #e0e0e0;
+    border-radius: 4px;
+    appearance: none;
+    outline: none;
+    transition: all 0.3s ease;
+    position: relative;
+    background: #f8f9fa;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+input[type="checkbox"]:checked {
+    border-color: #3a0a6ebb;
+    background: #3a0a6ebb;
+}
+
+input[type="checkbox"]:checked::after {
+    content: '';
+    position: absolute;
+    left: 4px;
+    top: 1px;
+    width: 4px;
+    height: 8px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+button[type="submit"] {
+    width: 100%;
+    padding: 1rem;
+    background: #1e2227;
+    color: white;
+    border: none;
+    border-radius: 14px;
+    font-size: 1.05rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow: 0 6px 20px rgba(42, 33, 51, 0.438);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    position: relative;
+    overflow: hidden;
+}
+
+button[type="submit"]::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+    );
+    transition: left 0.5s;
+}
+
+button[type="submit"]:hover::before {
+    left: 100%;
+}
+
+button[type="submit"]:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(42, 33, 51, 0.438);
+    background: #2e333a;
+}
+
+button[type="submit"]:active {
+    transform: translateY(-1px);
+}
+
+.error,
+.success {
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    border-radius: 12px;
+    text-align: center;
+    font-weight: 500;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.error {
+    background-color: #fff0f0;
+    color: #d32f2f;
+    border: 1px solid #ffcdd2;
+    border-left: 4px solid #f44336;
+}
+
+.success {
+    background-color: #f0fff4;
+    color: #2e7d32;
+    border: 1px solid #c8e6c9;
+    border-left: 4px solid #4caf50;
+}
+
+.links {
+    text-align: center;
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(106, 17, 203, 0.1);
+}
+
+.links a {
+    color: #3a0a6ebb;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    font-size: 0.95rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.links a:hover {
+    color: #5a0fb8;
+    transform: translateY(-2px);
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .container {
+        padding: 2rem 1.5rem;
+        margin: 0 10px;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    .header {
+        margin-bottom: 2rem;
+    }
+
+    .input-group-icon {
+        font-size: 1rem;
+        left: 10px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+        padding: 0.9rem 1.2rem 0.9rem 2.5rem;
+        font-size: 0.95rem;
+    }
+
+    button[type="submit"] {
+        padding: 0.9rem;
+        font-size: 1rem, 1rem;
+    }
+}
