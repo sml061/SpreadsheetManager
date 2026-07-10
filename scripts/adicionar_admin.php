@@ -15,6 +15,7 @@ $email = $_POST["email"];
 $senha = $_POST["senha"];
 $admin_check = $_POST["admin-check"];
 $ativo_check = $_POST["ativo-check"];
+$id = $_POST["id"];
 
 $senha_hash = password_hash($senha, PASSWORD_DEFAULT);
 
@@ -28,18 +29,35 @@ if ($check_stmt->fetch(PDO::FETCH_ASSOC)) {
     exit();
 }
 
-try {
-    $sql = "INSERT INTO usuarios (usuario, senha, email, ativo, is_admin) VALUES (:usuario, :senha, :email, :ativo, :is_admin)";
-    $stmt = $pdo->prepare($sql);
-    $stmt->bindValue(":usuario", $usuario);
-    $stmt->bindValue(":email", $email);
-    $stmt->bindValue("senha", $senha_hash);
-    $stmt->bindValue(":is_admin", $admin_check);
-    $stmt->bindValue(":ativo", $ativo_check);
-    $stmt->execute();
-} catch (PDOException $e) {
-    header("Location: ../Admin/adicionar-user/?error=db_error");
-    exit();
+if (empty($id)) {
+    try {
+        $sql = "INSERT INTO usuarios (usuario, senha, email, ativo, is_admin) VALUES (:usuario, :senha, :email, :ativo, :is_admin)";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindValue(":usuario", $usuario);
+        $stmt->bindValue(":email", $email);
+        $stmt->bindValue(":senha", $senha_hash);
+        $stmt->bindValue(":is_admin", $admin_check);
+        $stmt->bindValue(":ativo", $ativo_check);
+        $stmt->execute();
+    } catch (PDOException $e) {
+        header("Location: ../Admin/adicionar-user/?error=db_error");
+        exit();
+    }
+} else {
+    try {
+        $sql = "INSERT INTO usuarios (id, usuario, senha, email, ativo, is_admin) VALUES (:id, :usuario, :senha, :email, :ativo, :is_admin)";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindValue(":usuario", $usuario);
+        $stmt->bindValue(":email", $email);
+        $stmt->bindValue(":senha", $senha_hash);
+        $stmt->bindValue(":is_admin", $admin_check);
+        $stmt->bindValue(":ativo", $ativo_check);
+        $stmt->bindValue(":id", $id);
+        $stmt->execute();
+    } catch (PDOException $e) {
+        header("Location: ../Admin/adicionar-user/?error=db_error");
+        exit();
+    }
 }
 
 header("Location: ../Admin/?sucess=1");

@@ -3,3 +3,6 @@ vendor/
 
 # Ignore the .env file
 .env
+
+# Ignore node-modules directory
+node_modules/

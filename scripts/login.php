@@ -12,8 +12,18 @@
     $stmt = $pdo->prepare($sql);
     $stmt->bindValue(":usuario", $usuario);
     $stmt->execute();
-
+    
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+    try {
+        $sql = "UPDATE usuarios SET ultimo_login = CURRENT_TIMESTAMP WHERE usuario = :usuario";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindValue(":usuario", $usuario);
+        $stmt->execute();
+    } catch (PDOException $e) {
+        echo "". $e->getMessage();
+        exit();
+    }
 
     if ($user && password_verify($senha, $user['senha'])) {
 
@@ -24,6 +34,7 @@
         header("Location: ../DashBoard/");
         exit();
     }
+
 
     header("Location: ../login/?error=invalid_credentials");
     exit();

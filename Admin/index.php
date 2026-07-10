@@ -24,7 +24,6 @@ require_once("../scripts/auth_admin.php");
     <div class="header">
         <div class="header-title">Meu Dashboard</div>
         <div class="header-buttons">
-            <a href="https://cyberit.com.br/apps/proxy-usage/" class="btn" target="_blank">Proxy Usage</a>
             <a href="../DashBoard/" class="btn">Dash Board</a>
             <a href="../scripts/logout.php" class="btn btn-secondary">Log out</a>
         </div>

@@ -79,6 +79,17 @@ h1 {
     margin-bottom: 1.8rem;
 }
 
+.check-group {
+    margin: 1.8rem;
+}
+
+.opcoes {
+    display: flex;
+    align-items: center;
+    gap: 120px;
+}
+
+
 label {
     display: block;
     margin-bottom: 0.8rem;
@@ -113,6 +124,23 @@ label::before {
     top: 50%;
     transform: translateY(-50%);
     transition: color 0.3s ease;
+}
+
+input[type="number"] {
+    width: 100%;
+    padding: 12px 15px;
+    font-size: 16px;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    outline: none;
+    transition: .3s;
+    background: #fff;
+    color: #333;
+}
+
+input[type="number"]:focus {
+    border-color: #4A90E2;
+    box-shadow: 0 0 8px rgba(74, 144, 226, 0.3);
 }
 
 input[type="text"],

@@ -6,6 +6,7 @@ error_reporting(E_ALL);
 
 
 require_once("../config/database.php");
+require_once( __DIR__ . "/auth_admin.php");
 
 
 
@@ -36,12 +37,6 @@ if (!$user) {
     header("Location: ../Admin/?error=user_not_found");
     exit();
 }
-
-if ($user["is_admin"]) {
-    header("Location: ../Admin/?error=admin_cannot_be_authorized");
-    exit();
-}
-
 
 $novoStatus = $user["ativo"] ? 0 : 1;
 

@@ -24,7 +24,7 @@ require_once("../../scripts/auth_admin.php");
                 <?php if($_GET['error'] == 'username_exists'): ?>
                     <div class="error">Nome de usuário já existe!</div>
                 <?php elseif($_GET['error'] == 'db_error'): ?>
-                    <div class="error">Erro ao cadastrar. Tente novamente!</div>
+                    <div class="error">ID em uso por outro usuario</div>
                 <?php endif; ?>
             <?php endif; ?>
             <?php if(isset($_GET['success'])): ?>
@@ -54,21 +54,29 @@ require_once("../../scripts/auth_admin.php");
                         <input type="password" name="senha" id="senha" required>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="admin-check">Admin</label>
-                    <div class="input-group">
+                <div class="opcoes">
+                    
+                    <label for="admin-check">
                         <input type="hidden" id="admin-check" name="admin-check" value=0>
                         <input type="checkbox" id="admin-check" name="admin-check" value=1>
-                    </div>
-                    
-                </div>
-                <div class="form-group">
-                    <label for="ativo-check">Ativo</label>
-                    <div class="input-group">
+                        Admin
+                    </label>
+                        
+                
+                
+                    <label for="ativo-check">
                         <input type="hidden" id="ativo-check" name="ativo-check" value=0>
                         <input type="checkbox" id="ativo-check" name="ativo-check" value=1>
-                    </div>
+                        Ativo
+                    </label>
+                    
                 </div>
+
+                <input type="number" min="0" placeholder="ID" id="id" name="id">
+
+                <br>
+                <br>
+
                 <button type="submit">Adicionar</button>
                 <div class="links">
                     <a id="login" href="../">Voltar</a>

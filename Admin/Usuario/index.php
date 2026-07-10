@@ -219,7 +219,6 @@ if (empty($result)) {
     <div class="header">
         <div class="header-title">Meu Dashboard</div>
         <div class="header-buttons">
-            <a href="https://cyberit.com.br/apps/proxy-usage/" class="btn" target="_blank">Proxy Usage</a>
             <a href="../" class="btn">Admin Painel</a>
             <a href="../../scripts/logout.php" class="btn btn-secondary">Log out</a>
         </div>
@@ -256,7 +255,7 @@ if (empty($result)) {
                         <div class="detail-item">
                             <label>Status da Conta</label>                            
                             <p>
-                            <?php if ($user["is_admin"] == 1) {
+                            <?php if ($user["id"] == 1) {
                                 if ($user["ativo"] == 1) {
                                     echo "<span class=\"status status-active\">Ativo</span>";
                                 } else {
@@ -270,6 +269,20 @@ if (empty($result)) {
                                     </form>";
                             } ?>
                             </p>
+
+                        </div>
+
+                        <div class="details-grid">
+                            <div class="detail-item">
+                                <label for="ultimo_login-data">Ultimo Login</label>
+
+                                <p><?php if ($user["ultimo_login"]) {
+                                    echo htmlspecialchars($user["ultimo_login"]); 
+                                } else {
+                                    echo htmlspecialchars("Null");
+                                }?></p>
+                                
+                            </div>
 
                         </div>
                         <!-- Add more details if available in the database -->
