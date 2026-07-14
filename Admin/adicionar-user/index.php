@@ -53,6 +53,7 @@ require_once("../../scripts/auth_admin.php");
                         <span class="input-group-icon">🔒</span>
                         <input type="password" name="senha" id="senha" required>
                     </div>
+                    <p id='senha-message'></p>
                 </div>
                 <div class="opcoes">
                     
@@ -73,6 +74,10 @@ require_once("../../scripts/auth_admin.php");
                 </div>
 
                 <input type="number" min="0" placeholder="ID" id="id" name="id">
+<<<<<<< HEAD
+=======
+                <p id="id-error"></p>
+>>>>>>> 0972bb5 (Aviso se ID existe no adicionar-admin. Aviso se senha é forte)
 
                 <br>
                 <br>
@@ -83,5 +88,7 @@ require_once("../../scripts/auth_admin.php");
                 </div>
             </form>
         </div>
+
+        <script type="module" src="script/script.js"></script>
     </body>
 </html>
