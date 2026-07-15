@@ -16,12 +16,12 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 
 if (!isset($_GET["nome"])) {
-    header("Location: /LoginSystem/Admin/?error=user_not_found");
+    header("Location: /SpreadsheetManager/Admin/?error=user_not_found");
     exit();
 }
 
 if (empty($result)) {
-    header("Location: /LoginSystem/Admin/?error=user_not_found");
+    header("Location: /SpreadsheetManager/Admin/?error=user_not_found");
     exit();
 }
 

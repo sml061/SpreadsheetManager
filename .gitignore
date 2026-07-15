@@ -6,3 +6,9 @@ vendor/
 
 # Ignore node-modules directory
 node_modules/
+
+# composer Files
+composer.lock
+
+# JSON Files
+*.json

@@ -4,9 +4,9 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-require_once("../scripts/auth.php");
-require_once("../config/database.php");
-require_once("../scripts/auth_admin.php");
+require_once(__DIR__ . "/../scripts/auth.php");
+require_once(__DIR__ . "/../config/database.php");
+require_once(__DIR__ . "/../scripts/auth_admin.php");
 
 ?>
 
@@ -24,6 +24,7 @@ require_once("../scripts/auth_admin.php");
     <div class="header">
         <div class="header-title">Meu Dashboard</div>
         <div class="header-buttons">
+            <a href="DataBase/" class="btn">DataBase</a>
             <a href="../DashBoard/" class="btn">Dash Board</a>
             <a href="../scripts/logout.php" class="btn btn-secondary">Log out</a>
         </div>

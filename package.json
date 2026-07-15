@@ -11,26 +11,18 @@
     "url": "git+https://github.com/sml061/SpreadsheetManager.git"
   },
   "keywords": [],
-<<<<<<< HEAD
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
-=======
-  "license": "ISC",
   "type": "module",
->>>>>>> 0972bb5 (Aviso se ID existe no adicionar-admin. Aviso se senha é forte)
   "bugs": {
     "url": "https://github.com/sml061/SpreadsheetManager/issues"
   },
   "homepage": "https://github.com/sml061/SpreadsheetManager#readme",
   "dependencies": {
-<<<<<<< HEAD
-    "express": "^5.2.1"
-=======
+    "child_process": "^1.0.2",
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
-    "mysql2": "^3.22.6"
->>>>>>> 0972bb5 (Aviso se ID existe no adicionar-admin. Aviso se senha é forte)
+    "mysql2": "^3.23.0"
   }
 }

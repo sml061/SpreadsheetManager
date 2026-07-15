@@ -74,10 +74,7 @@ require_once("../../scripts/auth_admin.php");
                 </div>
 
                 <input type="number" min="0" placeholder="ID" id="id" name="id">
-<<<<<<< HEAD
-=======
                 <p id="id-error"></p>
->>>>>>> 0972bb5 (Aviso se ID existe no adicionar-admin. Aviso se senha é forte)
 
                 <br>
                 <br>
