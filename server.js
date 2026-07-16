@@ -12,12 +12,21 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static("public"));
 
-const conn = mysql.createConnection({
+const conn = mysql.createPool({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME
 });
+
+function log(tipo, mensagem) {
+    console.log(`[${tipo}]  ${mensagem}`)
+}
+
+function erro(err) {
+    return res.status(500).json({ error: err.message })
+    process.exit(1)
+};
 
 app.get("/usuarios", (req, res) => {
 
@@ -26,7 +35,7 @@ app.get("/usuarios", (req, res) => {
         (err, results) => {
 
             if (err) {
-                return res.status(500).json(err);
+                erro(err)
             }
 
             res.json(results);
@@ -35,6 +44,35 @@ app.get("/usuarios", (req, res) => {
     );
 
 });
+
+app.get("/DataBase/registros/:tabela", (req, res) => {
+    const tabela = req.params.tabela
+
+    conn.query(
+        `SELECT COUNT(*) AS total FROM ${tabela};`,
+        (err, result) => {
+            if (err) {
+                erro(err)
+            }
+            res.json(result[0])
+        }
+    )
+})
+
+app.get("/DataBase/tables", (req, res) => {
+
+    conn.query(
+        `SHOW TABLES FROM ${process.env.DB_NAME};`,
+        (err, result) => {
+            if (err) {
+                erro(err)
+            }
+            res.json(result)
+        }
+
+    )
+    
+})
 
 app.get("/DataBase/backup", (req, res) => {
 
@@ -47,24 +85,24 @@ app.get("/DataBase/backup", (req, res) => {
     const pythonProcess = spawn(processoPython, ["/opt/MySql/source/backup.py", host, user, database, password]);
 
     pythonProcess.stdout.on("data", (data) => {
-        console.log(data.toString());
+        log("Python", data.toString());
     });
 
     pythonProcess.stderr.on("data", (data) => {
-        console.error(data.toString());
+        log("Python", data.toString());
     });
 
     pythonProcess.on("close", (code) => {
-        console.log(`Processo finalizado com código ${code}`);
+        log("Warning", `Processo finalizado com código ${code}`);
     });
 
-    console.log("Api requisitada");
+    log("Warning", "Api requisitada");
     res.json({
         status: "ok",
-        message: "Api funcionando"
+        message: "BackUp concluido"
     });
 });
 
 app.listen(process.env.PORT, () => {
-    console.log("Servidor iniciado.");
+    log("System", "Servidor iniciado.");
 });
