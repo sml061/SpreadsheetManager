@@ -60,19 +60,18 @@ async function carregarTablesLen() {
 }
 
 async function carregarRegisterLen() {
-    const RegistrosLenElement = document.getElementById("totalRecords")
-    try {
-        const response = await fetch(`${API_URL}/DataBase/AllRegistros`);
+    const RegistrosLenElement = document.getElementById("totalRecords");
+    
+    const tabelas = await carregarTabelas();
 
-        if (!response) {
-            throw new Error('Erro ao carregar registros');
-        }
-        const registros = await response.json();
+    let registrosTotais = 0;
 
-        RegistrosLenElement.textContent = registros.total
-    } catch (error) {
-        actionResult.innerHTML = '<div class="error">Erro ao criar backup: ' + error.message + '</div>';
-    }
+    for (const tabela of tabelas) {
+        const registros = await carregarRegistros(tabela);
+        registrosTotais += registros;
+    };
+
+    RegistrosLenElement.textContent = registrosTotais;
 }
 
 
