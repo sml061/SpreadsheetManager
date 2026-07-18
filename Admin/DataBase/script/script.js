@@ -2,16 +2,109 @@ const backupButton = document.getElementById('backupButton');
 const optimizeButton = document.getElementById('optimizeButton');
 const checkButton = document.getElementById('checkButton');
 const actionResult = document.getElementById('actionResult');
+const API_URL = "http://localhost:3000"
 
 
 // Verificar as tabelas do banco de dados
+
+async function carregarRegistros(tabela) {
+    try {
+        const response = await fetch(`${API_URL}/DataBase/registros/${tabela}`);
+
+        if (!response) {
+            throw new Error('Erro ao carregar registros');
+        }
+        const registros = await response.json();
+
+        return registros.total;
+    } catch (error) {
+        actionResult.innerHTML = '<div class="error">Erro ao criar backup: ' + error.message + '</div>';
+    }
+}
+
+async function carregarTabelas() {
+    const listaTabelasElement = document.getElementById('tablesBody');
+
+    try {
+        const response = await fetch(`${API_URL}/DataBase/tables`);
+        
+        if (!response) {
+            throw new Error('Erro ao carregar tabelas');
+        }
+        const tabelas = await response.json();
+
+        let resultado = []
+
+        tabelas.forEach(objeto => {
+            const nomeDaTabela = Object.values(objeto)[0];
+
+            resultado.push(nomeDaTabela)
+        });
+
+        return resultado
+    } catch (error) {
+        actionResult.innerHTML = '<div class="error">Erro ao criar backup: ' + error.message + '</div>';
+    };
+}
+
+async function carregarTablesLen() {
+    const TabelasLenElement = document.getElementById("totalTables");
+
+    const tabelas = await carregarTabelas();
+
+    if (tabelas.length < 1) {
+        TabelasLenElement.textContent = "-";
+    } else {
+        TabelasLenElement.textContent = tabelas.length;
+    };
+}
+
+async function carregarRegisterLen() {
+    const RegistrosLenElement = document.getElementById("totalRecords")
+    try {
+        const response = await fetch(`${API_URL}/DataBase/AllRegistros`);
+
+        if (!response) {
+            throw new Error('Erro ao carregar registros');
+        }
+        const registros = await response.json();
+
+        RegistrosLenElement.textContent = registros.total
+    } catch (error) {
+        actionResult.innerHTML = '<div class="error">Erro ao criar backup: ' + error.message + '</div>';
+    }
+}
+
+
+async function carregarTR() {
+    const listaTabelasElement = document.getElementById("tablesBody");
+
+    const tabelas = await carregarTabelas();
+
+    for (const tabela of tabelas) {
+        const registros = await carregarRegistros(tabela);
+
+        const tr = document.createElement("tr");
+
+        const tdTabela = document.createElement("td");
+        tdTabela.textContent = tabela;
+
+        const tdRegistros = document.createElement("td");
+        tdRegistros.textContent = registros;
+
+        tr.append(tdTabela);
+        tr.append(tdRegistros);
+
+        listaTabelasElement.append(tr);
+    }
+}
 
 
 
 backupButton.addEventListener("click", async function () {
     actionResult.innerHTML = '<div class="success">Criando backup...</div>';
     try {
-        const response = await fetch("http://localhost:3000/DataBase/backup");
+        const response = await fetch(`${API_URL}/DataBase/backup`);
         const data = await response.json();
         actionResult.innerHTML = '<div class="success">' + (data.message || 'Backup concluído com sucesso!') + '</div>';
     } catch (error) {
@@ -22,7 +115,7 @@ backupButton.addEventListener("click", async function () {
 optimizeButton.addEventListener("click", async function () {
     actionResult.innerHTML = '<div class="success">Otimizando banco de dados...</div>';
     try {
-        const response = await fetch("http://localhost:3000/DataBase/optimize");
+        const response = await fetch(`${API_URL}/DataBase/optimize`);
         const data = await response.json();
         actionResult.innerHTML = '<div class="success">' + (data.message || 'Banco otimizado com sucesso!') + '</div>';
     } catch (error) {
@@ -33,7 +126,7 @@ optimizeButton.addEventListener("click", async function () {
 checkButton.addEventListener("click", async function () {
     actionResult.innerHTML = '<div class="success">Verificando integridade...</div>';
     try {
-        const response = await fetch("http://localhost:3000/DataBase/checkIntegrity");
+        const response = await fetch(`${API_URL}/DataBase/checkIntegrity`);
         const data = await response.json();
         actionResult.innerHTML = '<div class="success">' + (data.message || 'Verificação concluída!') + '</div>';
     } catch (error) {
@@ -41,5 +134,15 @@ checkButton.addEventListener("click", async function () {
     }
 });
 
-// Remove the inline script from index.php and let the external script handle everything
-console.log('Database page script loaded and initialized');
+
+function Main () {
+    carregarTR();
+    
+    carregarTablesLen();
+
+    carregarRegisterLen();
+    
+
+}
+
+Main()

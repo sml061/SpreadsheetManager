@@ -67,12 +67,7 @@ require_once(__DIR__ . "/../../scripts/auth_admin.php");
                     </tr>
                 </thead>
                 <tbody id="tablesBody">
-                    <tr>
-                        <td id='NomeTabela'>usuarios</td>
-                        <td id=''>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                    </tr>
+                    
                 </tbody>
             </table>
         </div>
