@@ -47,26 +47,33 @@ async function carregarTabelas() {
     };
 }
 
-// async function carregarTR() {
-//     const listaTabelasElement = document.getElementById('tablesBody');
+async function carregarTablesLen() {
+    const TabelasLenElement = document.getElementById("totalTables");
 
-//     const tabelas = await carregarTabelas();
-//     let cnt = 0;
+    const tabelas = await carregarTabelas();
 
-//     tabelas.forEach(objeto => {
-//         const registros = await carregarRegistros(objeto);
-//         const tr = document.createElement('tr');
-//         const tdTabela = document.createElement('td');
-//         const tdRegistros = document.createElement('td');
+    if (tabelas.length < 1) {
+        TabelasLenElement.textContent = "-";
+    } else {
+        TabelasLenElement.textContent = tabelas.length;
+    };
+}
 
-//         tdRegistros.textContent = registros.len
-//         tdTabela.textContent = objeto;
-//         cnt++;
+async function carregarRegisterLen() {
+    const RegistrosLenElement = document.getElementById("totalRecords")
+    try {
+        const response = await fetch(`${API_URL}/DataBase/AllRegistros`);
 
-//         tr.append(tdTabela, tdRegistros);
-//     });
+        if (!response) {
+            throw new Error('Erro ao carregar registros');
+        }
+        const registros = await response.json();
 
-// }
+        RegistrosLenElement.textContent = registros.total
+    } catch (error) {
+        actionResult.innerHTML = '<div class="error">Erro ao criar backup: ' + error.message + '</div>';
+    }
+}
 
 
 async function carregarTR() {
@@ -91,8 +98,6 @@ async function carregarTR() {
         listaTabelasElement.append(tr);
     }
 }
-
-carregarTR()
 
 
 
@@ -129,5 +134,15 @@ checkButton.addEventListener("click", async function () {
     }
 });
 
-// Remove the inline script from index.php and let the external script handle everything
-console.log('200 OK');
+
+function Main () {
+    carregarTR();
+    
+    carregarTablesLen();
+
+    carregarRegisterLen();
+    
+
+}
+
+Main()
